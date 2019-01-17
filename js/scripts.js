@@ -15,35 +15,22 @@ var divide = function(number1, number2) {
 };
 
 $(document).ready(function() {
-  $("form#add").submit(function(event) {
+  $("form#calculator").submit(function(event) {
     event.preventDefault();
-    var number1 = parseInt($("#add1").val());
-    var number2 = parseInt($("#add2").val());
-		var result = add(number1, number2);
-    $("#outputadd").text(result);
-  });
+    var number1 = parseInt($("#input1").val());
+    var number2 = parseInt($("#input2").val());
 
-	$("form#subtract").submit(function(event) {
-		event.preventDefault();
-		var number1 = parseInt($("#sub1").val());
-		var number2 = parseInt($("#sub2").val());
-		var result = subtract(number1, number2);
-		$("#outputsub").text(result);
-	});
-
-	$("form#multiply").submit(function(event) {
-		event.preventDefault();
-		var number1 = parseInt($("#x1").val());
-		var number2 = parseInt($("#x2").val());
-		var result = multiply(number1, number2);
-		$("#outputx").text(result);
-	});
-
-	$("form#divide").submit(function(event) {
-		event.preventDefault();
-		var number1 = parseInt($("#d1").val());
-		var number2 = parseInt($("#d2").val());
+		if (isNaN(number1) || isNaN(number2)) {
+			var result = "One or both input values are not a number."
+		} else if ($("input:radio[name=operator]:checked").val() === "add") {
+				var result = add(number1, number2);
+		} else if ($("input:radio[name=operator]:checked").val() === "subtract") {
+			var result = subtract(number1, number2);
+		} else if ($("input:radio[name=operator]:checked").val() === "multiply") {
+			var result = multiply(number1, number2);
+		} else if ($("input:radio[name=operator]:checked").val() === "divide") {
 		var result = divide(number1, number2);
-		$("#outputd").text(result);
-	});
+	}
+  $("#output").empty().append(result);
+  });
 });
